@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { AppointmentModal } from './components/AppointmentModal';
-import { GitHubDeployGuideModal } from './components/GitHubDeployGuideModal';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { TreatmentsPage } from './pages/TreatmentsPage';
@@ -23,14 +22,23 @@ export default function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [bookingBranch, setBookingBranch] = useState<string | undefined>(undefined);
   const [bookingTreatment, setBookingTreatment] = useState<string | undefined>(undefined);
-  const [isDeployGuideOpen, setIsDeployGuideOpen] = useState(false);
 
   // Sync with browser URL hash for deep links and browser back/forward buttons
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash.replace(/^#\/?/, '');
-      if (hash) {
-        setCurrentPath(hash);
+      let path = window.location.hash.replace(/^#\/?/, '');
+      if (!path) {
+        // Support direct pathname visits and fallback redirects
+        const pathname = window.location.pathname
+          .replace(/^\/(?:Classic_Smiles|Classsic_Smiles)\/?/, '')
+          .replace(/^\//, '')
+          .replace(/index\.html$/, '');
+        if (pathname) {
+          path = pathname;
+        }
+      }
+      if (path) {
+        setCurrentPath(path);
       } else {
         setCurrentPath('home');
       }
@@ -117,7 +125,6 @@ export default function App() {
         currentPath={currentPath}
         onNavigate={handleNavigate}
         onOpenBooking={handleOpenBooking}
-        onOpenDeployGuide={() => setIsDeployGuideOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -129,7 +136,6 @@ export default function App() {
       <Footer
         onNavigate={handleNavigate}
         onOpenBooking={() => handleOpenBooking()}
-        onOpenDeployGuide={() => setIsDeployGuideOpen(true)}
       />
 
       {/* Interactive Priority Booking Modal (Simulated per user request) */}
@@ -138,12 +144,6 @@ export default function App() {
         onClose={() => setIsBookingOpen(false)}
         defaultBranch={bookingBranch}
         defaultTreatment={bookingTreatment}
-      />
-
-      {/* GitHub Deployment Guide Modal */}
-      <GitHubDeployGuideModal
-        isOpen={isDeployGuideOpen}
-        onClose={() => setIsDeployGuideOpen(false)}
       />
     </div>
   );
