@@ -7,10 +7,7 @@ import {
   Menu, 
   X, 
   Calendar, 
-  Sparkles, 
-  Shield, 
-  ExternalLink,
-  Github
+  Shield 
 } from 'lucide-react';
 import { TREATMENTS, CLINIC_LOCATIONS } from '../data/mockData';
 
@@ -20,14 +17,12 @@ interface HeaderProps {
   currentPath: string;
   onNavigate: (path: string) => void;
   onOpenBooking: (branch?: string, treatment?: string) => void;
-  onOpenDeployGuide: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentPath,
   onNavigate,
-  onOpenBooking,
-  onOpenDeployGuide
+  onOpenBooking
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,21 +71,11 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          {/* Right badges & GitHub Deploy Guide */}
+          {/* Right badges */}
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1 bg-cyan-900/60 text-cyan-200 px-2.5 py-0.5 rounded-full text-[11px] font-medium border border-cyan-700/50">
               <Shield className="w-3 h-3 text-cyan-400" /> ISO 9001:2015 Certified
             </span>
-
-            {/* GitHub Deploy Quick Helper Button */}
-            <button
-              onClick={onOpenDeployGuide}
-              className="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white px-2.5 py-0.5 rounded-full text-[11px] font-medium border border-slate-700 transition-all cursor-pointer shadow-xs"
-              title="Click for easy GitHub deployment instructions"
-            >
-              <Github className="w-3 h-3 text-cyan-400" />
-              <span>Deploy to GitHub</span>
-            </button>
           </div>
         </div>
       </div>
@@ -291,21 +276,12 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 max-h-[80vh] overflow-y-auto">
-          <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-100">
+          <div className="pb-3 border-b border-slate-100">
             <button
               onClick={() => onOpenBooking()}
-              className="w-full py-2.5 px-3 rounded-xl bg-cyan-700 text-white text-xs font-semibold flex items-center justify-center gap-1.5"
+              className="w-full py-2.5 px-3 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
             >
               <Calendar className="w-3.5 h-3.5" /> Book Consultation
-            </button>
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenDeployGuide();
-              }}
-              className="w-full py-2.5 px-3 rounded-xl bg-slate-800 text-white text-xs font-semibold flex items-center justify-center gap-1.5"
-            >
-              <Github className="w-3.5 h-3.5 text-cyan-400" /> Deploy Guide
             </button>
           </div>
 
