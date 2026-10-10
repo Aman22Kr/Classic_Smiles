@@ -1,15 +1,7 @@
 import React from 'react';
 import { 
-  Sparkles, 
-  MapPin, 
-  Phone, 
-  Mail, 
   ShieldCheck, 
-  Award, 
-  Github, 
-  Heart,
-  Clock,
-  ExternalLink
+  Award 
 } from 'lucide-react';
 import { CLINIC_LOCATIONS, TREATMENTS } from '../data/mockData';
 import { AdPlaceholder } from './AdPlaceholder';
@@ -19,13 +11,11 @@ import { ClassicSmilesLogo } from './ClassicSmilesLogo';
 interface FooterProps {
   onNavigate: (path: string) => void;
   onOpenBooking: () => void;
-  onOpenDeployGuide: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onNavigate,
-  onOpenBooking,
-  onOpenDeployGuide
+  onOpenBooking
 }) => {
   return (
     <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800">
@@ -57,18 +47,6 @@ export const Footer: React.FC<FooterProps> = ({
               <span className="inline-flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-3 py-1 rounded-full text-slate-300">
                 <Award className="w-3.5 h-3.5 text-amber-400" /> ICOI USA Accredited
               </span>
-            </div>
-
-            {/* GitHub Deploy Quick Action */}
-            <div className="pt-3">
-              <button
-                onClick={onOpenDeployGuide}
-                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-cyan-300 hover:text-cyan-200 border border-slate-700 px-3.5 py-2 rounded-xl text-xs font-medium transition-all group"
-              >
-                <Github className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
-                <span>Deploy to GitHub Guide</span>
-                <span className="text-[10px] bg-cyan-950 text-cyan-400 px-1.5 py-0.5 rounded border border-cyan-800">Ready</span>
-              </button>
             </div>
           </div>
 
